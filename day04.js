@@ -4,8 +4,6 @@ let entries = fs.readFileSync('day04.txt', {encoding: 'utf-8'}) .split("\n\n")
 
 let passObjects = []
 
-let count = entries.length
-
 for (i = 0; i < entries.length; i++) {
   entries[i] = entries[i].replace(/ /g, '", "')
   entries[i] = entries[i].replace(/\n/g, '", "')
@@ -16,6 +14,7 @@ for (i = 0; i < entries.length; i++) {
 
 }
 
+let count = passObjects.length
 // tests
 
 for (i = 0; i < passObjects.length; i++) {
@@ -26,6 +25,7 @@ for (i = 0; i < passObjects.length; i++) {
 
     if (!(passObjects[i].hasOwnProperty(tests[j]))) {
       delete passObjects[i]
+      count--
       break breakPoint1;
     }
   }
@@ -94,10 +94,6 @@ for (i = 0; i < passObjects.length; i++) {
 filterObjects()
 
 
-
-
-
-
 function yearTest(year, min, max) {
   if (!year.match(/^\d{4}$/)) return false;
   year = parseInt(year)
@@ -111,7 +107,7 @@ function filterObjects() {
   passObjects = passObjects.filter(function (item) {
     return item !== 0
   })
-  console.log(passObjects.length)
 }
 
-console.log("Final Tally:", passObjects.length)
+console.log("4-1 tally:", count)
+console.log("4-2 Final Tally:", passObjects.length)
