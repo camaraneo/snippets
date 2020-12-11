@@ -26,31 +26,39 @@ ruleLines.forEach(rule => {
   })
 })
 
-console.log(ruleMapQty)
-
-
-
+//console.log(ruleMapQty)
 
 
 function bagContains(colour) {
+    if(colour === "shiny gold") return true
+    if(!ruleMap.has(colour)) return false
 
+    let innerBags = ruleMap.get(colour)
+    console.log(innerBags)
+
+    for (const bag of innerBags) {
+        if(bagContains(bag)) return true
+    }
+
+    //return false
 }
 
+let mapKeys = ruleMap.keys()
+let count = 0
+//console.log(mapKeys)
+
+for (const key of mapKeys) {
+    //console.log(key)
+    if(bagContains(key)) count++    
+}
+
+console.log(count)
 
 
-
-
-
+/*
 let mapCopy = new Map()
-  
 ruleMap.forEach ( (value, key) => {
   mapCopy.set(key, value)
 })
-
 console.log(mapCopy)
-
-/*
-let mapped = ruleMap.map( a => a )
-
-console.log(mapped)
 */
