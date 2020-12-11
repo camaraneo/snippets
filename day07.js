@@ -6,21 +6,51 @@ let ruleLines = fs.readFileSync('day07test.txt', {encoding: 'utf-8'}) .replace(/
 let ruleMap = new Map()
 let ruleMapQty = new Map()
 
-ruleLines.forEach( rule => {
+ruleLines.forEach(rule => {
   let [bag, contents] = rule.split(" bags contain ")
-  contents.split(", ").map( txt => {
-    const {groups} = /((?<quantity>\d+))? (?<colour>.*)/.exec(txt.replace(/ bags?/, ""))
+  contents.split(", ").map(txt => {
+    const { groups } = /(?<quantity>\d+)? (?<colour>.*)/.exec(txt.replace(/ bags?/, ""))
 
-    if(!ruleMap.has(bag)) {
+// make ruleMap with each bag key having value of contained bag colour array
+    if (!ruleMap.has(bag)) {
       ruleMap.set(bag, [])
     }
-    ruleMap.set(bag, [...ruleMap.get(bag) , groups.colour])
+    ruleMap.set(bag, [...ruleMap.get(bag), groups.colour])
 
-    if(!ruleMapQty.has(bag)) {
+// make ruleMapQty with each bag key having value of an array of objects of the contained bag colours & quantities
+    if (!ruleMapQty.has(bag)) {
       ruleMapQty.set(bag, [])
     }
-    ruleMapQty.set(bag, [...ruleMapQty.get(bag) , {colour: groups.colour, quantity: groups.quantity}])
+    let containedBagObj = {colour: groups.colour, quantity: groups.quantity}
+    ruleMapQty.set(bag, [...ruleMapQty.get(bag), containedBagObj])
   })
 })
 
-console.log(ruleMap, ruleMapQty)
+console.log(ruleMapQty)
+
+
+
+
+
+function bagContains(colour) {
+
+}
+
+
+
+
+
+
+let mapCopy = new Map()
+  
+ruleMap.forEach ( (value, key) => {
+  mapCopy.set(key, value)
+})
+
+console.log(mapCopy)
+
+/*
+let mapped = ruleMap.map( a => a )
+
+console.log(mapped)
+*/
