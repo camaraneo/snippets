@@ -2,12 +2,8 @@ let fs = require('fs') // node.js file server module
 
 let lookup = fs.readFileSync('fittingcountLookup.txt', {encoding: 'utf-8'}) .replace(/\t/g,"\n") .split("\n") .sort(function(a, b){return a-b})
 
-let data = fs.readFileSync('fittingcountB1-2.txt', {encoding: 'utf-8'}) .split("\n")
+let data = fs.readFileSync('fittingcountTanksWest.txt', {encoding: 'utf-8'}) .split("\n")
 
-//validation
-data.forEach( (line, i) => {
-    if(!lookup.includes(line)) console.log("ERROR at line:", i)
-}
 
 let result = []
 
@@ -21,11 +17,17 @@ lookup.forEach ( (fittType, i) => {
     result[i] = [fittType, count]
 })
 
+console.log("\n\n\n")
+console.log("Tee (thru x branch)")
 
 for (const line of result) {
-    console.log(line[0]+", " + line[1])
+    if(line[1]) console.log(line[0]+", " + line[1])
 }
 
+//validation
+data.forEach( (line, i) => {
+    if(!lookup.includes(line)) console.log("ERROR at line:", i)
+})
 
 /*
 let output = result[0][1];
