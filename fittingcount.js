@@ -4,6 +4,11 @@ let lookup = fs.readFileSync('fittingcountLookup.txt', {encoding: 'utf-8'}) .rep
 
 let data = fs.readFileSync('fittingcountB1-2.txt', {encoding: 'utf-8'}) .split("\n")
 
+//validation
+data.forEach( (line, i) => {
+    if(!lookup.includes(line)) console.log("ERROR at line:", i)
+}
+
 let result = []
 
 lookup.forEach ( (fittType, i) => {
